@@ -1,21 +1,43 @@
 /* AddEmployee.css */
 
 /* Form container */
+.onboarding-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 60%;
-    margin: 0 auto;
-    font-size: 1rem;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 0 auto;
+  font-size: 1rem;
+}
+
+/* Form grid layout */
+.form-step {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
 }
 
 /* Form field labels */
 label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
 }
 
 /* Form inputs */
@@ -24,13 +46,14 @@ input[type="number"],
 input[type="email"],
 input[type="date"],
 input[type="tel"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
+input[type="password"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.9rem;
 }
 
 input[type="text"]:focus,
@@ -38,70 +61,13 @@ input[type="number"]:focus,
 input[type="email"]:focus,
 input[type="date"]:focus,
 input[type="tel"]:focus,
-input[type="password"]:focus {
-    border-color: #4CAF50;
-    outline: none;
+input[type="password"]:focus,
+select:focus {
+  border-color: #4CAF50;
+  outline: none;
 }
 
-/* Submit button */
-button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-button[type="submit"]:focus {
-    outline: none;
-}
-
-/* Heading */
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-
-  /* Input and dropdown styling */
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  /* Dropdown specific styling */
-  .form-group select {
-    appearance: none;
-    background-color: white;
-    cursor: pointer;
-    padding-right: 30px;
-    position: relative;
-  }
-  
-  /* Dropdown hover and focus effect */
-  .form-group select:hover,
-  .form-group select:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-
-  .onboarding-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
+/* Progress bar */
 .progress-bar {
   display: flex;
   justify-content: space-between;
@@ -113,6 +79,10 @@ h1 {
   background: #f0f0f0;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 0.9rem;
+  text-align: center;
+  flex-grow: 1;
+  margin: 0 5px;
 }
 
 .step.active {
@@ -120,28 +90,21 @@ h1 {
   color: white;
 }
 
-.form-step {
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
+/* Form actions */
 .form-actions {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  grid-column: 1 / -1;
 }
 
 button {
-  padding: 8px 15px;
+  padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 button[type="submit"] {
@@ -149,6 +112,51 @@ button[type="submit"] {
   color: white;
 }
 
+button[type="submit"]:hover {
+  background: #3e8e41;
+}
+
 button[type="button"] {
   background: #f0f0f0;
+}
+
+button[type="button"]:hover {
+  background: #ddd;
+}
+
+.prev-btn {
+  margin-right: auto;
+}
+
+.next-btn, .submit-btn {
+  margin-left: auto;
+  background: #4CAF50;
+  color: white;
+}
+
+/* Heading */
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  grid-column: 1 / -1;
+}
+
+/* Make some fields span full width when needed */
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .form-step {
+    grid-template-columns: 1fr;
+  }
+  
+  .progress-bar {
+    flex-direction: column;
+  }
+  
+  .step {
+    margin: 5px 0;
+  }
 }
