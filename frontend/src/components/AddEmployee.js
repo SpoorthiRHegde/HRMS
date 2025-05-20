@@ -183,19 +183,31 @@ const AddEmployee = () => {
       alert('Failed to add employee');
     }
   };
-
+  const ProgressStep = ({ step, label, current }) => (
+    <div 
+      className={`step ${current >= step ? 'active' : ''}`}
+      onClick={() => goToStep(step)}
+    >
+      {label}
+    </div>
+  );
+    const goToStep = (step) => {
+    setCurrentStep(step);
+  };
   return (
-    <div className="employee-onboarding">
-      <h1>Add Employee</h1>
+    <div className="onboarding-container">
+      <h1>Employee Onboarding</h1>
       
+      {/* Progress Bar */}
       <div className="progress-bar">
-        <div className={`step ${currentStep >= 1 ? 'active' : ''}`}>1. Employee Details</div>
-        <div className={`step ${currentStep >= 2 ? 'active' : ''}`}>2. Qualifications</div>
-        <div className={`step ${currentStep >= 3 ? 'active' : ''}`}>3. Account Details</div>
-        <div className={`step ${currentStep >= 4 ? 'active' : ''}`}>4. Family Details</div>
+        <ProgressStep step={1} label="1. Employee Details" current={currentStep} />
+        <ProgressStep step={2} label="2. Qualifications" current={currentStep} />
+        <ProgressStep step={3} label="3. Account Details" current={currentStep} />
+        <ProgressStep step={4} label="4. Family Details" current={currentStep} />
       </div>
 
-      <form onSubmit={handleSubmit}>
+      {/* Form Steps */}
+      <form onSubmit={handleSubmit} className="form-container">
         {/* Step 1: Employee Details */}
         {currentStep === 1 && (
           <div className="form-step">

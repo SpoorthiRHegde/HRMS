@@ -96,4 +96,59 @@ h1 {
     outline: none;
   }
 
-  
+  .onboarding-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.step {
+  padding: 10px 15px;
+  background: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.step.active {
+  background: #4CAF50;
+  color: white;
+}
+
+.form-step {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  background: #4CAF50;
+  color: white;
+}
+
+button[type="button"] {
+  background: #f0f0f0;
+}

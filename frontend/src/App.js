@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import CombinedEmployeeView from './components/CombinedEmployeeView'; // New combined view component
-import EmployeeOnboarding from './components/EmployeeOnboarding';
+import EmployeeOnboarding from './components/AddEmployee';
 import AddSalary from './components/addsalary';
 import Salary from './components/Salary';
 import AddLeave from './components/AddLeave';
