@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaEdit, FaTrash, FaSearch, FaCog, FaTimes } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaSearch, FaCog, FaTimes, FaFilePdf, FaFileExcel } from 'react-icons/fa';
 import './CombinedEmployeeView.css';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 const CombinedEmployeeView = () => {
   // State for all data types with proper initialization
@@ -201,6 +204,207 @@ const fetchAllData = async () => {
     return families.find(f => f.EID === eid) || {};
   };
 
+const downloadEmployeePDF = (employee) => {
+  try {
+    const doc = new jsPDF();
+    const account = getEmployeeAccount(employee.EID);
+    const family = getEmployeeFamily(employee.EID);
+    const qualifications = getEmployeeQualifications(employee.EID);
+
+    // Add title
+    doc.setFontSize(18);
+    doc.text('Employee Detailed Report', 14, 20);
+    doc.setFontSize(12);
+    doc.setTextColor(100);
+    doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 30);
+
+    // Employee Basic Information Section
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text('1. Basic Information', 14, 45);
+    
+    autoTable(doc, {
+      startY: 50,
+      head: [['Field', 'Value']],
+      body: [
+        ['Employee ID', employee.EID || 'N/A'],
+        ['Name', `${employee.INITIAL || ''} ${employee.FIRSTNAME || ''} ${employee.MIDDLENAME || ''} ${employee.LASTNAME || ''}`.trim()],
+        ['Designation', employee.DESIGNATION || 'N/A'],
+        ['Department ID', employee.DID || 'N/A'],
+        ['Date of Birth', formatDate(employee.DOB) || 'N/A'],
+        ['Date of Joining', formatDate(employee.DATE_OF_JOIN) || 'N/A'],
+        ['Gender', employee.GENDER || 'N/A'],
+        ['Phone', employee.PHONE || 'N/A'],
+        ['Email', employee.EMAIL || 'N/A'],
+        ['Address', `${employee.DOORNO || ''}, ${employee.CITY || ''}, ${employee.STATE || ''} - ${employee.PINCODE || ''}`.trim()],
+        ['Nationality', employee.NATIONALITY || 'N/A'],
+        ['Faculty Type', employee.FTYPE || 'N/A'],
+        ['Caste', employee.CASTE || 'N/A']
+      ],
+      theme: 'grid',
+      headStyles: {
+        fillColor: [41, 128, 185],
+        textColor: 255,
+        fontStyle: 'bold'
+      }
+    });
+
+    // Professional Experience Section
+    if (employee.PPROFEXP_FROM || employee.PPROFEXP_TO || employee.PROFEXP_DESIGNATION) {
+      doc.setFontSize(14);
+      doc.text('2. Professional Experience', 14, doc.lastAutoTable.finalY + 15);
+      
+      autoTable(doc, {
+        startY: doc.lastAutoTable.finalY + 20,
+        head: [['Designation', 'From', 'To']],
+        body: [
+          [
+            employee.PROFEXP_DESIGNATION || 'N/A',
+            formatDate(employee.PPROFEXP_FROM) || 'N/A',
+            formatDate(employee.PPROFEXP_TO) || 'N/A'
+          ]
+        ],
+        theme: 'grid',
+        headStyles: {
+          fillColor: [52, 152, 219],
+          textColor: 255,
+          fontStyle: 'bold'
+        }
+      });
+    }
+
+    // Account Details Section
+    doc.setFontSize(14);
+    doc.text('3. Account Details', 14, doc.lastAutoTable.finalY + 15);
+    
+    autoTable(doc, {
+      startY: doc.lastAutoTable.finalY + 20,
+      head: [['Field', 'Value']],
+      body: [
+        ['Biometric Card No.', account.BIOMETRIC_CARD_NO || 'N/A'],
+        ['Aadhar Number', account.AADHAR || 'N/A'],
+        ['Bank Account', account.BANK_ACC || 'N/A'],
+        ['PAN Number', account.PAN || 'N/A']
+      ],
+      theme: 'grid',
+      headStyles: {
+        fillColor: [155, 89, 182],
+        textColor: 255,
+        fontStyle: 'bold'
+      }
+    });
+
+    // Family Details Section
+    doc.setFontSize(14);
+    doc.text('4. Family Details', 14, doc.lastAutoTable.finalY + 15);
+    
+    autoTable(doc, {
+      startY: doc.lastAutoTable.finalY + 20,
+      head: [['Relation', 'Name', 'Date of Birth']],
+      body: [
+        ['Father', family.FNAME || 'N/A', formatDate(family.F_DOB) || 'N/A'],
+        ['Mother', family.MNAME || 'N/A', formatDate(family.M_DOB) || 'N/A']
+      ],
+      theme: 'grid',
+      headStyles: {
+        fillColor: [231, 76, 60],
+        textColor: 255,
+        fontStyle: 'bold'
+      }
+    });
+
+    // Qualifications Section
+    if (qualifications.length > 0) {
+      doc.setFontSize(14);
+      doc.text('5. Educational Qualifications', 14, doc.lastAutoTable.finalY + 15);
+      
+      autoTable(doc, {
+        startY: doc.lastAutoTable.finalY + 20,
+        head: [['Institution', 'Specialization', 'Year', 'Percentage']],
+        body: qualifications.map(q => [
+          q.INSTITUTION || 'N/A',
+          q.SPECIALIZATION || 'N/A',
+          q.YOG || 'N/A',
+          q.PERCENTAGE ? `${q.PERCENTAGE}%` : 'N/A'
+        ]),
+        theme: 'grid',
+        headStyles: {
+          fillColor: [26, 188, 156],
+          textColor: 255,
+          fontStyle: 'bold'
+        }
+      });
+    }
+
+    // Leave Balances Section
+    doc.setFontSize(14);
+    doc.text('6. Leave Balances', 14, doc.lastAutoTable.finalY + 15);
+    
+    autoTable(doc, {
+      startY: doc.lastAutoTable.finalY + 20,
+      head: [['Leave Type', 'Balance']],
+      body: [
+        ['Medical Leave', employee.LEAVE_ML || 'N/A'],
+        ['Casual Leave', employee.LEAVE_CL || 'N/A'],
+        ['Restricted Holiday', employee.LEAVE_RH || 'N/A'],
+        ['On Official Duty', employee.LEAVE_OOD || 'N/A'],
+        ['Loss of Pay', employee.LEAVE_LOP || 'N/A']
+      ],
+      theme: 'grid',
+      headStyles: {
+        fillColor: [241, 196, 15],
+        textColor: 0,
+        fontStyle: 'bold'
+      }
+    });
+
+    // Add page numbers
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(10);
+      doc.setTextColor(150);
+      doc.text(
+        `Page ${i} of ${pageCount}`,
+        doc.internal.pageSize.width - 25,
+        doc.internal.pageSize.height - 10
+      );
+    }
+
+    // Save the PDF
+    doc.save(`Employee_${employee.EID}_Full_Details.pdf`);
+  } catch (error) {
+    console.error('Error generating PDF:', error);
+    alert('Failed to generate PDF. Please try again.');
+  }
+};
+
+  // Download all displayed employees as Excel
+  const downloadAllEmployeesExcel = () => {
+    const data = filteredEmployees.map(emp => {
+      const account = getEmployeeAccount(emp.EID);
+      const family = getEmployeeFamily(emp.EID);
+      
+      return {
+        'Employee ID': emp.EID,
+        'Name': `${emp.FIRSTNAME || ''} ${emp.LASTNAME || ''}`,
+        'Designation': emp.DESIGNATION,
+        'Date of Joining': formatDate(emp.DATE_OF_JOIN),
+        'Email': emp.EMAIL,
+        'Phone': emp.PHONE,
+        'Biometric Card': account.BIOMETRIC_CARD_NO || 'N/A',
+        'PAN': account.PAN || 'N/A',
+        "Father's Name": family.FNAME || 'N/A',
+        "Mother's Name": family.MNAME || 'N/A'
+      };
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Employees");
+    XLSX.writeFile(workbook, "employees_data.xlsx");
+  };
+
   // Render the main table
   const renderEmployeeTable = () => {
     if (!Array.isArray(filteredEmployees)) {
@@ -209,7 +413,7 @@ const fetchAllData = async () => {
 
     // Get all visible columns
     const visibleColumns = Object.keys(columns).filter(col => columns[col]);
-
+    
     return (
       <div className="table-container">
         <table className="employee-table">
@@ -226,7 +430,7 @@ const fetchAllData = async () => {
               const employeeQuals = getEmployeeQualifications(emp.EID);
               const employeeAccount = getEmployeeAccount(emp.EID);
               const employeeFamily = getEmployeeFamily(emp.EID);
-
+              
               return (
                 <tr key={emp.EID}>
                   {visibleColumns.map(col => {
@@ -279,6 +483,13 @@ const fetchAllData = async () => {
                     <button className="icon-button-dlt" title="Delete">
                       <FaTrash />
                     </button>
+                    <button 
+          className="icon-button-pdf" 
+          title="Download PDF"
+          onClick={() => downloadEmployeePDF(emp)}
+        >
+          <FaFilePdf /> PDF
+        </button>
                   </td>
                 </tr>
               );
@@ -323,6 +534,12 @@ const fetchAllData = async () => {
         >
           <FaCog /> Columns
         </button>
+         <button 
+    className="excel-download-btn"
+    onClick={downloadAllEmployeesExcel}
+  >
+    <FaFileExcel /> Export to Excel
+  </button>
       </div>
       
       {showColumnSelector && (

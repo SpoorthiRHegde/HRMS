@@ -112,53 +112,108 @@
 }
 
 /* Column selector styles */
-.column-selector {
+/* Column Selector Overlay */
+.column-selector-overlay {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 1000;
-  max-width: 80%;
+}
+
+.column-selector-container {
+  background: white;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 900px;
   max-height: 80vh;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .column-selector-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+.column-selector-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
 }
 
 .close-button {
   background: none;
   border: none;
+  font-size: 1.2rem;
   cursor: pointer;
   color: #666;
 }
 
-.column-groups {
+.column-selector-content {
+  padding: 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.column-groups-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
 
 .column-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  background: #f9f9f9;
+  border-radius: 6px;
+  padding: 15px;
 }
 
 .column-group h4 {
-  margin: 0 0 10px 0;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #eee;
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #444;
+  font-size: 1rem;
 }
 
+.column-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.column-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.column-option input {
+  cursor: pointer;
+}
+
+.column-option span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* Loading and error states */
 .loading {
   padding: 20px;
@@ -174,4 +229,44 @@
   border-radius: 4px;
   margin: 20px;
   text-align: center;
+}
+/* Action buttons */
+.icon-button-pdf {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.icon-button-pdf:hover {
+  background-color: #c0392b;
+}
+
+.excel-download-btn {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  margin-left: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.excel-download-btn:hover {
+  background-color: #27ae60;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
 }
