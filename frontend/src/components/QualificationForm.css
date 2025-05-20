@@ -1,0 +1,88 @@
+/* QualificationForm.css */
+
+/* Form container styling */
+.qualification-form {
+    width: 70%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Form heading */
+.qualification-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Label styling */
+.qualification-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Input fields styling */
+.qualification-form input[type="text"],
+.qualification-form input[type="number"],
+.qualification-form input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Input field focus effect */
+.qualification-form input:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Submit button styling */
+.qualification-form .submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Submit button hover effect */
+.qualification-form .submit-btn:hover {
+    background-color: #45a049;
+}
+
+/* Submit button active effect */
+.qualification-form .submit-btn:active {
+    background-color: #3d8b3d;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .qualification-form {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .qualification-form .submit-btn {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}

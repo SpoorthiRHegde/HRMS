@@ -1,0 +1,206 @@
+/* SalaryList.css */
+
+/* Table container */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Table headers */
+table th {
+  padding: 12px;
+  background-color: #b5e7a0; /* Light green */
+  color: #333;
+  text-align: left;
+  border: 1px solid #ddd;
+  font-weight: bold;
+}
+
+/* Table cells */
+table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+  background-color: #ffffff;
+}
+
+table td:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Header and buttons */
+h1 {
+  color: #2e7d32;
+  margin-bottom: 15px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Column selector dropdown */
+.column-selector {
+  position: absolute;
+  top: 120px;
+  right: 20px;
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  border-radius: 5px;
+}
+
+.column-selector-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.column-selector label {
+  display: block;
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+/* Close button for column selector */
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+/* Edit form popup */
+.edit-form-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+.edit-form-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Form input fields */
+.edit-form-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Edit and delete icons */
+.icon-button-edit,
+.icon-button-dlt {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  margin: 0 8px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.icon-button-edit {
+  color: #007bff;
+}
+
+.icon-button-dlt {
+  color: #dc3545;
+}
+
+.icon-button-edit:hover,
+.icon-button-dlt:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+/* Confirmation popup for deletion */
+.delete-confirm-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+.delete-confirm-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Flexible column selector checkboxes */
+.column-selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: normal;
+  display: inline-flex;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  table th, table td {
+      font-size: 0.85rem;
+      padding: 8px;
+  }
+
+  button {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+  }
+}

@@ -1,0 +1,284 @@
+/* EmployeeList.css */
+
+/* Table container */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table headers */
+table th {
+    padding: 12px;
+    background-color: #cbdacc; /* Green background by default */
+    color: rgb(102, 12, 12);
+    text-align: left;
+    border: 1px solid #ad6565; /* Optional: Adds a border for better clarity */
+}
+
+/* Table cells */
+table td {
+    padding: 12px;
+    border: 1px solid #f8d9d9;
+    text-align: left;
+}
+
+table td:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Select columns section */
+h3 {
+    margin-bottom: 10px;
+}
+
+label {
+    margin-right: 15px;
+    font-weight: normal;
+    display: inline-flex;
+    align-items: center;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Flex container for column selection */
+.column-selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Adds spacing between checkboxes */
+    margin-bottom: 20px;
+}
+
+/* Button styles */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Modal styles */
+/* Style for the modal (popup) */
+/* Style for the modal (popup) */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    z-index: 1000;
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh; /* Maximum height of the popup */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+  
+  
+  .close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    padding: 10px;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    position: absolute; /* This is necessary for dragging */
+  }
+  
+  .popup input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .popup button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  .popup button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+  }
+  
+  .popup button[type="button"] {
+    background-color: #f44336;
+    color: white;
+    border: none;
+  }
+  
+  .edit-form-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .edit-form-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  .delete-confirm-popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .delete-confirm-content{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .icon-button-edit,
+  .icon-button-dlt {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem; /* Slightly larger for better visibility */
+    margin: 0 8px;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+  
+  .icon-button-edit {
+    color: #007bff; /* Brighter blue */
+  }
+  
+  .icon-button-dlt {
+    color: #dc3545; /* Stronger red */
+  }
+  
+  .icon-button-edit:hover,
+  .icon-button-dlt:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  
+  .icon-button-edit:focus,
+  .icon-button-dlt:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 0, 255, 0.3);
+  }
+  
+  .icon-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .column-selector {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .column-selector-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .close-button:hover {
+    color: #000;
+  }
+  
+  .column-selector label {
+    display: block;
+    margin: 5px 0;
+  }
